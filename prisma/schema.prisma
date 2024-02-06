@@ -9,3 +9,13 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Names {
+  ID    Int     @id @default(autoincrement())
+  Name  String?
+}
+
+model Words {
+  ID    Int     @id @default(autoincrement())
+  Name  String?
+}

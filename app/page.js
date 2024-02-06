@@ -1,13 +1,19 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+// pages/index.js
+import prisma from '../prisma/client';
+
+let resultNames = await prisma.$queryRaw`SELECT Name FROM Names`;
+resultNames=JSON.stringify(resultNames).replace(/[^a-zA-Z,]*"Name":"([^"]*)"[^a-zA-Z,]*/g, '$1').replace(/,([^,]*)$/, ' y $1');
+let resultWords = await prisma.$queryRaw`SELECT Word FROM Words`;
+resultWords=JSON.stringify(resultWords).replace(/[^a-zA-Z,]*"Word":"([^"]*)"[^a-zA-Z,]*/g, '$1').replace(/,/, ' ');
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Hola Mundo &nbsp;
-          <code className={styles.code}>Moti y Juan</code>
+        {resultWords} de {resultNames}.
         </p>
         <div>
           <a
